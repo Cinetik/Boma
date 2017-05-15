@@ -7,8 +7,8 @@ import java.awt.*;
 public class Signal extends JPanel {
     private Color color;
     private State state;
-    int radius = 50;
-    int border = 15;
+    private int radius = 50;
+    private int border = 15;
 
     public Signal(Color color, State state) {
         this.color = color;
@@ -20,11 +20,23 @@ public class Signal extends JPanel {
         return new Dimension(size, size);
     }
 
+    public void togglePower(State state) {
+        this.state = state;
+    }
+
     public void paintComponent(Graphics g) {
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, getWidth(), getHeight());
-        g.setColor(this.color);
+        switch(this.state) {
+            case ON:
+                g.setColor(this.color);
+                break;
+            case OFF:
+                g.setColor(Color.BLACK);
+        }
+
         g.fillOval(border, border, radius, radius);
+
         repaint();
     }
 
